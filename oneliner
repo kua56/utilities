@@ -1,0 +1,11 @@
+# create a big file
+fallocate -l 1GB test.dat
+dd if=/dev/zero of=test.dat bs=1M count=1000
+head -c 1000m /dev/urandom > test.dat
+
+# create multiple files
+touch test{001..100}.dat
+
+# add specific text (where base.txt contains text to add)
+find . -name "test*" -exec echo 'cat base.txt > {}' \; | sh -
+
